@@ -1,4 +1,4 @@
-# Author: Murat Uenalan (murat.uenalan@charite.de)
+# Author: Murat Uenalan (muenalan@cpan.org)
 #
 # Copyright (c) 2001 Murat Uenalan. All rights reserved.
 #
@@ -79,7 +79,9 @@ sub println
 		print $this $indent;
 	}
 
-    print $this @_, "\n";
+	push @_, $_ unless @_;
+
+    print $this @_ , "\n";
 }
 
 sub printl
@@ -114,7 +116,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw();
 
-our $VERSION = '0.02';
+our $VERSION = '0.04';
 
 # Preloaded methods go here.
 
@@ -122,7 +124,7 @@ use subs qw( printl println printfln sprintfln ind indn indb tabs );
 
 our $_indentation = 0;
 
-our @_indenthistory;
+our @_indenthistory = ( 0 );
 
 =head1 VARIABLES
 
@@ -165,6 +167,8 @@ Same as normal print, but adds newline character to the end.
 
 sub println
 {
+
+	push @_, $_ unless @_;
 
 return printl @_, "\n";
 }
@@ -221,7 +225,10 @@ sub ind
 	{
 		if( $indval >= 0 )
 		{
-			push @_indenthistory, $_indentation = $indval;
+			if( $_indenthistory[-1] != $indval )
+			{
+				push( @_indenthistory, $_indentation = $indval );
+			}
 		}
 		else
 		{
@@ -253,11 +260,15 @@ Decreases the indentation back to previous value.
 
 sub indb
 {
-	if( @_indenthistory )
+	if( @_indenthistory > 0)
 	{
 		pop @_indenthistory;
 
 		$_indentation = $_indenthistory[-1] if @_indenthistory;
+	}
+	else
+	{
+		$_indentation-- if $_indentation > 0;
 	}
 
 return $_indentation+0;
@@ -308,7 +319,7 @@ If all this does not help, contact me under the emailadress below.
 
 =head1 AUTHOR
 
-Murat Uenalan, murat.uenalan@charite.de
+Murat Uenalan, muenalan@cpan.org
 
 =head1 COPYRIGHT
 

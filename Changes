@@ -7,3 +7,18 @@ Revision history for Perl extension IO::Extended.
 0.02 22.06.2001 00:52
 	- deleted test1.pl
 	- README added to MANIFEST
+
+0.03 13.05.2002 18:25
+	- now ind() "history" is only collecting changing values
+
+		.i.e. 0 1 1 1 1 1 2 2 2 3 3 3 3 3
+
+			becomes
+
+			  0 1 2 3
+
+	- ind() "history" fix also fixes some misbehaviour|bug of indb()
+
+0.04 22.06.2002 18:40
+	- some changes in the documention
+	
