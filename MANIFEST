@@ -1,5 +1,6 @@
 Changes
 Makefile.PL
+README
 MANIFEST
 Extended.pm
 test.pl

@@ -4,3 +4,6 @@ Revision history for Perl extension IO::Extended.
 	- original version; created by h2xs 1.20 with options
 		-A -X -a -n IO::Extended
 
+0.02 22.06.2001 00:52
+	- deleted test1.pl
+	- README added to MANIFEST
