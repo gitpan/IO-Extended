@@ -108,6 +108,8 @@ use strict;
 
 use warnings;
 
+use Carp;
+
 use Exporter;
 
 our @ISA = qw(Exporter);
@@ -118,7 +120,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw();
 
-our $VERSION = '0.06';
+our $VERSION = '0.08';
 
 # Preloaded methods go here.
 
@@ -145,6 +147,12 @@ Scalars for constructing tabs. Indentation is done via printing C<space x ( inde
 =cut
 
 our $tabsize = 5;
+
+sub _translate_fmt
+{
+
+    $_[0] =~ s/((?<!%)%[S|D])/"'".lc $1."'"/ge;
+}
 
 =head1 FUNCTIONS
 
@@ -183,6 +191,8 @@ sub printfln
 {
 	my $fmt = shift;
 
+	_translate_fmt( $fmt );
+
 	$fmt .= "\n";
 
 	if( indstr() )
@@ -190,6 +200,11 @@ sub printfln
 		$fmt = indstr().$fmt;
 	}
 
+for( @_ )
+{
+	carp "undefined value interpolation" unless defined $_ ;
+}
+	
 return printf $fmt, @_;
 }
 
@@ -202,6 +217,8 @@ Same as normal (s)printf, but adds newline character to the FORMAT string (Resul
 sub sprintfln
 {
 	my $fmt = shift;
+
+	_translate_fmt( $fmt );
 
 	$fmt .= "\n";
 
@@ -333,6 +350,17 @@ return $space x ( $_indentation * $tabsize );
 __END__
 
 =back
+
+=head1 FORMAT (*printf*)
+
+Barely all format is forwared to the perl internal printf like functions, but
+one is translated.
+
+%S or %D in the format string will get translated to C<'%s'> or C<'%d'>. It should help writing
+
+ printfln "Your given string %S is broken.", $string;
+
+[Note] C<$string> could contains confusing whitespaces, for example.
 
 =head1 SUPPORT
 
