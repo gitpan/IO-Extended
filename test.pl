@@ -18,7 +18,7 @@ use strict;
 
 use warnings;
 
-use diagnostics;
+#use diagnostics;
 
 our $loaded = 1;
 
@@ -26,11 +26,11 @@ print "ok 1\n";
 
 	for( 0..10 )
 	{
-		printf "set tabsize = %s\n", tabs( $_ );
+		printf "set tabsize = %s (%s)\n", tabs( $_ ), indstr();
 
-		for( 0..10 )
+		for( 0..5 )
 		{
-			printfln 'set indentation = %s', ind( $_ );
+			printfln 'set indentation = %s ( x tabsize = %d chars)', ind( $_ ), length indstr();
 
 			println 'Hello, this is println calling..';
 
@@ -39,9 +39,9 @@ print "ok 1\n";
 			print my $out = sprintfln 'Hello, this is %s calling..', 'sprintfln';
 		}
 
-		for( 0..10)
+		while(indb())
 		{
-			printfln 'set indentation = %s', indb;
+			printfln 'set indentation = %s ( x tabsize = %d chars)', ind(), length indstr();
 
 			println 'Hello, this is println calling..';
 
@@ -51,9 +51,16 @@ print "ok 1\n";
 		}
 	}
 
-	$_ = 'ALL RIGHT';
+warnfln "This is a warnfln test %s.", 'warning';
 
-	println;
+$_ = 'ALL RIGHT';
+
+println;
+
+eval
+{
+    diefln 'OK - and with diefln we wont live %s.', 'forever';
+}
 
 ######################### End of black magic.
 

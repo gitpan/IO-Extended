@@ -24,3 +24,7 @@ Revision history for Perl extension IO::Extended.
 
 0.05 22.06.2002 18:49
 	- some changes in the documention
+	
+0.06 20.07.2003 12:00
+        - added warnfln and diefln
+        - fixed a bug in test.pl

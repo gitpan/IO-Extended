@@ -14,27 +14,29 @@ IO::Extended - more print functions
 
 =head1 SYNOPSIS
 
-use IO::Extended ':all';
+  use IO::Extended ':all';
 
-println 'Hello, this is println calling..';
+    printl 'foo bar';
 
-printfln 'Hello, this is %s calling..', 'printfln';
+    println 'foo bar';
 
-print my $out = sprintfln 'Hello, this is %s calling..', 'sprintfln';
+    printfln 'foo %s', 'bar';
 
-ind 1;
+    $str = sprintfln 'foo %s', 'bar';
 
-println "Hello, this is println calling..";
-println "Hello, this is println calling..";
+    warnfln 'foo %s', 'bar';
 
-	ind 2;
+    diefln 'foo %s', 'bar';
 
-	println "Hello, this is println calling..";
-	println "Hello, this is println calling..";
+    tabs 5;
 
-	indb;
+    ind 1;
 
-println "Hello, this is println calling..";
+    indn;
+
+    indb;
+
+    indstr;
 
 =head1 DESCRIPTION
 
@@ -110,17 +112,17 @@ use Exporter;
 
 our @ISA = qw(Exporter);
 
-our %EXPORT_TAGS = ( 'all' => [ qw( printl println printfln sprintfln ind indn indb tabs ) ] );
+our %EXPORT_TAGS = ( 'all' => [ qw( printl println printfln sprintfln warnfln diefln ind indn indb indstr tabs ) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw();
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 # Preloaded methods go here.
 
-use subs qw( printl println printfln sprintfln ind indn indb tabs );
+use subs qw( printl println printfln sprintfln warnfln diefln ind indn indb indstr tabs );
 
 our $_indentation = 0;
 
@@ -211,6 +213,28 @@ sub sprintfln
 return sprintf $fmt, @_;
 }
 
+=item warnfln
+
+As C<warn>, but accepts a FORMAT string like printfln.
+
+=cut
+
+sub warnfln
+{
+    warn( sprintfln( @_ ) );
+}
+
+=item diefln
+
+As C<die>, but accepts a FORMAT string like printfln.
+
+=cut
+
+sub diefln
+{
+    die( sprintfln( @_ ) );
+}
+
 =item ind( $integer )
 
 Sets the indentation value.
@@ -254,7 +278,7 @@ return ind( $indval + 1 )+0;
 
 =item indb
 
-Decreases the indentation back to previous value.
+Decreases the indentation on back in its history.
 
 =cut
 
@@ -300,7 +324,7 @@ Returns the absolute indentation space.
 
 sub indstr
 {
-	return undef unless $_indentation;
+	return '' unless $_indentation;
 
 return $space x ( $_indentation * $tabsize );
 }
