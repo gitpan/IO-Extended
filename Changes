@@ -1,0 +1,6 @@
+Revision history for Perl extension IO::Extended.
+
+0.01  Tue Feb 20 15:39:58 2001
+	- original version; created by h2xs 1.20 with options
+		-A -X -a -n IO::Extended
+
