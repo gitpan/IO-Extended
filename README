@@ -1,9 +1,6 @@
 MODULE
 	IO::Extended - more print functions
 
-VERSION
-	0.02
-
 DESCRIPTION
 
 	IO::Extended contains a collection of print-like functions, which automatically add
@@ -15,25 +12,17 @@ PREREQUISITES
 
 BUILD/INSTALL
 
-	shell>> perl Makefile.PL
-	shell>> make
-	shell>> make test
-	shell>> make install
+	perl Makefile.PL
+	make
+	make test
+	make install
 
 WIN32 BUILD/INSTALL (when Microsoft Developer Studio installed)
 
-	shell>> perl Makefile.PL
-	shell>> nmake
-	shell>> nmake test
-	shell>> nmake install
-
-RECENT CHANGES
-
-	This is the first release.
-
-FUTURE CHANGES / ENHANCEMENTS
-
-	See the Todo file in this distribution (if exists).
+	perl Makefile.PL
+	nmake
+	nmake test
+	nmake install
 
 HISTORY
 
