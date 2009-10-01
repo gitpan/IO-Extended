@@ -40,3 +40,5 @@ Revision history for Perl extension IO::Extended.
 0.11 09.05.2006 08:00
 	- added indreset()
 
+0.15
+        - small bug indstr() was not qualified in IO::Handle package 

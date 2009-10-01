@@ -77,7 +77,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw(println printfln);
 
-our $VERSION = '0.13';
+our $VERSION = '0.15'; # introduced _newline var
 
 # Preloaded methods go here.
 
@@ -86,6 +86,8 @@ use subs qw( printl println ln lne lnf printfln sprintfln warnfln diefln ind ind
 our $_indentation = 0;
 
 our @_indenthistory = ( 0 );
+
+our $_newline = "\n";
 
 =head1 VARIABLES
 
@@ -137,7 +139,7 @@ sub println
 
 	push @_, $_ unless @_;
 
-return printl @_, "\n";
+return printl @_, $_newline;
 }
 
 =item ln
@@ -161,7 +163,7 @@ sub printfln
 
 	_translate_fmt( $fmt );
 
-	$fmt .= "\n";
+	$fmt .= $_newline;
 
 	if( indstr() )
 	{
@@ -219,7 +221,7 @@ sub sprintfln
 
 	_translate_fmt( $fmt );
 
-	$fmt .= "\n";
+	$fmt .= $_newline;
 
 	if( indstr() )
 	{
@@ -374,12 +376,12 @@ results in
 
 sub nl
 {
-  return join (' ', @_ )."\n";
+  return join (' ', @_ ).$_newline;
 }
 
 sub indblock
 {
- @_ = split /\\n/, $_[0];
+ @_ = split /$_newline/, $_[0];
 
 my @result;
 
@@ -391,7 +393,7 @@ for( @_ )
 	push @result, $_;
 }
 
-return (@result,"\n");
+return (@result, $_newline);
 }
 
 package IO::Handle;
@@ -408,11 +410,11 @@ sub printfln
 
 	IO::Extended::_translate_fmt( $fmt );
 
-	$fmt .= "\n";
+	$fmt .= $_newline;
 
 	if( IO::Extended::indstr() )
 	{
-		$fmt = indstr().$fmt;
+		$fmt = IO::Extended::indstr().$fmt;
 	}
 
     for( @_ )
@@ -441,7 +443,7 @@ sub println
 
 	push @_, $_ unless @_;
 
-    print $this @_ , "\n";
+    print $this @_ , $_newline;
 }
 
 sub ln

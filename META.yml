@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               IO-Extended
-version:            0.13
+version:            0.15
 abstract:           more print functions
 author:
     - A. U. Thor <a.u.thor@a.galaxy.far.far.away>
