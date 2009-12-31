@@ -55,6 +55,8 @@ warnfln "We now expect an Hurray... at the beginning of the line";
 
 warnfln "%s This is a warnfln test %S showing the %%S feature.", 'Hurray...', 'warning';
 
+warnfln "%-30S This is a of the %S feature with column definition.", 'Yesss...', "%S";
+
 $_ = 'ALL RIGHT';
 
 println;

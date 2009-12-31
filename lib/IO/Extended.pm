@@ -77,7 +77,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw(println printfln);
 
-our $VERSION = '0.15'; # introduced _newline var
+our $VERSION = '1.0';
 
 # Preloaded methods go here.
 
@@ -107,10 +107,12 @@ Scalars for constructing tabs. Indentation is done via printing C<space x ( inde
 
 our $tabsize = 5;
 
+our $percent_s_quote = "'";
+
 sub _translate_fmt
 {
 
-    $_[0] =~ s/((?<!%)%[S|D])/"'".lc $1."'"/ge;
+    $_[0] =~ s/((?<!%)%[\d\-\.]*[S|D])/"$percent_s_quote".lc $1."$percent_s_quote"/ge;
 }
 
 =head1 FUNCTIONS
